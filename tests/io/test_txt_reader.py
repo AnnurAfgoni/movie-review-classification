@@ -21,7 +21,7 @@ class TestFileManager(unittest.TestCase):
         with open(self.target_file, "w") as f:
             f.write("This is a test target file.")
 
-        self.file_manager = FileManager(self.test_dir)
+        self.file_manager = FileManager(self.input_file, self.target_file)
 
     def tearDown(self) -> None:
         # remove temporary directory and its content
@@ -29,19 +29,23 @@ class TestFileManager(unittest.TestCase):
 
     def test_read_input(self):
         expected_content = "This is a test input file."
-        actual_content = self.file_manager.read_input("test_input.txt")
+        actual_content = self.file_manager.input_data
         self.assertEqual(actual_content, expected_content)
 
     def test_read_target(self):
         expected_content = "This is a test target file."
-        actual_content = self.file_manager.read_target("test_target.txt")
+        actual_content = self.file_manager.target_data
         self.assertEqual(actual_content, expected_content)
 
     def test_read_input_file_not_found(self):
+        # Remove the input file to simulate file not found
+        self.input_file.unlink()
         with self.assertRaises(FileNotFoundError):
-            self.file_manager.read_input("nonexistent_file.txt")
+            FileManager(self.input_file, self.target_file)
 
     def test_read_target_file_not_found(self):
+        # Remove the target file to simulate file not found
+        self.target_file.unlink()
         with self.assertRaises(FileNotFoundError):
-            self.file_manager.read_target("nonexistent_file.txt")
+            FileManager(self.input_file, self.target_file)
         
