@@ -4,10 +4,10 @@ import shutil
 from string import punctuation
 from pathlib import Path
 
-from imdb_review_classify.transforms import PreProcess
+from imdb_review_classify.transforms import DataPreparation
 
 
-class TestPreProcess(unittest.TestCase):
+class TestDataPreparation(unittest.TestCase):
     def setUp(self) -> None:
         # temporary directories
         self.test_dir = tempfile.mkdtemp()
@@ -22,7 +22,7 @@ class TestPreProcess(unittest.TestCase):
         with open(self.target_file, "w") as f:
             f.write("positive\nnegative")
 
-        self.preprocessor = PreProcess(str(self.input_file), str(self.target_file))
+        self.preprocessor = DataPreparation(str(self.input_file), str(self.target_file))
     
     def tearDown(self) -> None:
         # remove temporary file
