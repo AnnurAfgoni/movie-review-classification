@@ -4,7 +4,7 @@ from string import punctuation
 from imdb_review_classify.io import FileManager
 
 
-class PreProcess:
+class DataPreparation:
     
     def __init__(self, input_path: str, target_path: str):
         self.input_path = Path(input_path)
